@@ -217,8 +217,8 @@
                                         <h5 class="card-subtitle">QR CODE</h5>
                                         <canvas id="canvas"></canvas>
                                     </div>
-                                   <h5>USER ID : {{=user}} <br><br>
-                                     QR CODE : <span id="activationstatus">{{=obj.qr}}</span>
+                                   <h5>USER ID : {{user}} <br><br>
+                                     QR CODE : <span id="activationstatus">{{obj.qr}}</span>
                                     </h5>  
                                    
                                 </div>
@@ -275,12 +275,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="urc_uploaded">{{=obj.rc_uploaded}}</td>
-                                            <td id="urc_verified">{{=obj.rc_verified}}</td>
+                                            <td id="urc_uploaded">{{obj.rc_uploaded}}</td>
+                                            <td id="urc_verified">{{obj.rc_verified}}</td>
                                             <td id="urc_blockchain">
-                                                <label class="label label-danger">{{=obj.rc_blockchain}}</label>
+                                                <label class="label label-danger">{{obj.rc_blockchain}}</label>
                                             </td>
-                                            <td id="urc_validity">{{=obj.rc_validity}}</td>
+                                            <td id="urc_validity">{{obj.rc_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadrc" id="urc" method="post">
                                                 <input id="fileurc" type="file" />
                                                 <input type="submit" value="Upload">
@@ -296,12 +296,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="upo_uploaded">{{=obj.po_uploaded}}</td>
-                                            <td id="upo_verified">{{=obj.po_verified}}</td>
+                                            <td id="upo_uploaded">{{obj.po_uploaded}}</td>
+                                            <td id="upo_verified">{{obj.po_verified}}</td>
                                             <td id="upo_blockchain">
-                                                <label class="label label-danger">{{=obj.po_blockchain}}</label>
+                                                <label class="label label-danger">{{obj.po_blockchain}}</label>
                                             </td>
-                                            <td id="upo_validity">{{=obj.po_validity}}</td>
+                                            <td id="upo_validity">{{obj.po_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadpo" id="upo" method="post">
                                                 <input id="fileupo" type="file" />
                                                 <input type="submit" value="Upload">
@@ -317,12 +317,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="uis_uploaded">{{=obj.is_uploaded}}</td>
-                                            <td id="uis_verified">{{=obj.is_verified}}</td>
+                                            <td id="uis_uploaded">{{obj.is_uploaded}}</td>
+                                            <td id="uis_verified">{{obj.is_verified}}</td>
                                             <td id="uis_blockchain">
-                                                <label class="label label-danger">{{=obj.is_blockchain}}</label>
+                                                <label class="label label-danger">{{obj.is_blockchain}}</label>
                                             </td>
-                                            <td id="uis_validity">{{=obj.is_validity}}</td>
+                                            <td id="uis_validity">{{obj.is_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadis" id="uis" method="post">
                                                 <input id="fileuis" type="file" />
                                                 <input type="submit" value="Upload">
@@ -469,7 +469,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by Decentra Travel. Designed and Developed by <a href="#">Mohit,  Avinash and Aditya</a>.
+                All Rights Reserved by HashSyTravel. Designed and Developed by <a href="#">Mohit,  Avinash and Aditya</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

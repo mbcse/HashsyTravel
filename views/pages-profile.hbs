@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/dashboard/assets/images/favicon.png">
-    <title>Decentra Travel</title>
+    <title>HashSyTravel</title>
     <!-- Custom CSS -->
     <link href="/dashboard/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -75,8 +75,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <center class="m-t-30"> <img src="/images/dtlogo.png" class="rounded-circle" width="150" />
-                                    <h4 class="card-title m-t-10" id="name">{{=(user.fname+user.lname)}}</h4>
-                                    <h6 class="card-subtitle" id="username" >{{=user.username}}</h6>
+                                    <h4 class="card-title m-t-10" id="name">{{(user.fname+user.lname)}}</h4>
+                                    <h6 class="card-subtitle" id="username" >{{user.username}}</h6>
                                     <div class="row text-center justify-content-md-center">
                                      Verified:<div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium" id="verified">Verified</font></a></div>
                                       QR:  <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium" id="active">Active</font></a></div>
@@ -88,7 +88,7 @@
                             <div class="card-body"> <small class="text-muted">Email address </small>
                                 <h6>{{=user.email}}</h6> <small class="text-muted p-t-30 db">Adharr</small>
                                 <h6>{{=user.addhar}}</h6>
-                                <small class="text-muted p-t-30 db">DOb</small>
+                                <small class="text-muted p-t-30 db">DOB</small>
                                 <h6>{{=user.dob}}</h6>
                                 <!-- <div class="map-box">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -229,7 +229,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                Fetched From Ethereum Blockchain <a href="">Decentra Travel</a>.
+                Fetched From Ethereum Blockchain <a href="">HashSyTravel</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -269,27 +269,27 @@
 
         });
 
-        contract.get_rc_details({{=bid}},(err,rc)=>{
+        contract.get_rc_details({{bid}},(err,rc)=>{
             document.getElementById("rcipfs").innerText=rc[0];
             document.getElementById("rcid").innerText=rc[1];
             document.getElementById("rcvalidity").innerText=new Date(parseInt(rc[2])*1000);
 
         });
 
-        contract.get_driving_details({{=bid}},(err,dl)=>{
+        contract.get_driving_details({{bid}},(err,dl)=>{
             document.getElementById("dlipfs").innerText=dl[0];
             document.getElementById("dlid").innerText=dl[1];
             document.getElementById("dlvalidity").innerText=new Date(parseInt(dl[2])*1000);
         });
 
-        contract.get_pollution_details({{=bid}},(err,po)=>{
+        contract.get_pollution_details({{bid}},(err,po)=>{
             document.getElementById("poipfs").innerText=po[0];
             document.getElementById("poid").innerText=po[1];
             console.log(po[2]);
             document.getElementById("povalidity").innerText=new Date(parseInt(po[2])*1000);
         });
 
-        contract.get_insurance_details({{=bid}},(err,is)=>{
+        contract.get_insurance_details({{bid}},(err,is)=>{
             document.getElementById("isipfs").innerText=is[0];
             document.getElementById("isid").innerText=is[1];
             document.getElementById("isvalidity").innerText=new Date(parseInt(is[2])*1000);
