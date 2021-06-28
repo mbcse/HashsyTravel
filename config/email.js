@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
   });
 
 
-function sndmail(from, tooo, subj, mssg) {
+function sendMail(from, tooo, subj, mssg) {
   var fromemail = from;
   var sub = subj;
   var msg = mssg;
@@ -34,3 +34,5 @@ transporter.sendMail(mail, function (error, info) {
     }
   });
 }
+
+module.exports={sendMail};
