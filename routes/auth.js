@@ -7,8 +7,6 @@ router.get('/login', function(req, res, next) {
     res.render("login", { msg: "" });
 });
 
-router.post('/login', function(req, res, next) {
-  res.render('dashboard');
-});
+router.post('/login', );
 
 module.exports = router;

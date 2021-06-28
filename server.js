@@ -1,8 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
+var session = require("express-session");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+const uuid = require("uuid/v4");
+
+require("./config/handlebarHelpers");
+
 
 var indexRouter = require('./routes/index');
 var dashboardRouter = require('./routes/dashboard');
@@ -14,6 +20,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
@@ -23,6 +30,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/web3", express.static(path.join(__dirname, '/node_modules/web3/dist')));
 app.use("/blockchain", express.static(path.join(__dirname, '/public/web3')));
+app.use(
+  session({
+    secret: "decentra-32887675-travel-000-95-maa",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 
 app.use('/', indexRouter);

@@ -40,9 +40,9 @@
 						<img src="/img/ieeelogon.png" alt="" style="width: 200px;height: auto;">
 						<br>
 					Login
-					{{ if (msg != '') { }}
+					{{#unless (check msg "") }}
 						<div class="" style="color: rgb(218, 14, 14);" >{{ msg }}</div>
-					   {{ } }}
+					   {{/unless }}
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
