@@ -1,45 +1,5 @@
-if (typeof web3 !== "undefined") {
-  web3 = new Web3(web3.currentProvider);
-} else {
-  web3 = new Web3(
-    new Web3.providers.HttpProvider("http://localhost:7545/decentra")
-  );
-}
-console.log("");
-web3.version.getNetwork((err, netId) => {
-  switch (netId) {
-    case "1":
-      console.log("This is mainnet");
-      break;
-    case "2":
-      console.log("This is the deprecated Morden test network.");
-      break;
-    case "3":
-      console.log("This is the ropsten test network.");
-      break;
-    case "4":
-      console.log("This is the Rinkeby test network.");
-      break;
-    case "42":
-      console.log("This is the Kovan test network.");
-      break;
-    default:
-      console.log("This is an unknown network.");
-  }
-});
-
-web3.eth.defaultAccount = web3.eth.accounts[0];
-console.log("Account Connected Address :  " + web3.eth.defaultAccount);
-
-var testContract = web3.eth.contract(abi);
-var contract = testContract.at(contractAddress);
-
-contract.testcontract((err, result) => {
-  console.log(result);
-});
 
 //Register Code
-
 $("#regform").submit((event) => {
   event.preventDefault();
   $.fn.serializeObject = function () {
@@ -64,7 +24,7 @@ $("#regform").submit((event) => {
 
   $.ajax({
     type: "POST",
-    url: "/registeruser",
+    url: "/auth/register",
     data: rdata,
     dataType: "json",
     success: function (response) {

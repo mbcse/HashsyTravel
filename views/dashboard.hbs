@@ -134,8 +134,8 @@
                                 <div class="user-pic"><img src="/dashboard/assets/images/users/1.jpg" alt="users" class="rounded-circle" width="40" /></div>
                                 <div class="user-content hide-menu m-l-10">
                                     <a href="javascript:void(0)" class="" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <h5 class="m-b-0 user-name font-medium">MOHIT BHAT<i class="fa fa-angle-down"></i></h5>
-                                        <span class="op-5 user-email">mbcse50@gmail.com</span>
+                                        <h5 class="m-b-0 user-name font-medium">{{userdata.fname}} {{ userdata.lname}}<i class="fa fa-angle-down"></i></h5>
+                                        <span class="op-5 user-email">{{userdata.email}}</span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Userdd">
                                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
@@ -218,7 +218,7 @@
                                         <canvas id="canvas"></canvas>
                                     </div>
                                    <h5>USER ID : {{user}} <br><br>
-                                     QR CODE : <span id="activationstatus">{{obj.qr}}</span>
+                                     QR CODE : <span id="activationstatus">{{userdata.qr}}</span>
                                     </h5>  
                                    
                                 </div>
@@ -254,12 +254,12 @@
                                                 </div>
                                             </td>
                                             
-                                            <td id="udl_uploaded">{{obj.dl_uploaded}}</td>
-                                            <td id="udl_verified">{{obj.dl_verified}}</td>
+                                            <td id="udl_uploaded">{{userdata.dl_uploaded}}</td>
+                                            <td id="udl_verified">{{userdata.dl_verified}}</td>
                                             <td id="udl_blockchain">
-                                                <label class="label label-danger">{{obj.dl_blockchain}}</label>
+                                                <label class="label label-danger">{{userdata.dl_blockchain}}</label>
                                             </td>
-                                            <td id="udl_validity">{{obj.dl_validity}}</td>
+                                            <td id="udl_validity">{{userdata.dl_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploaddl" id="udl" method="post">
                                                 <input id="fileudl" type="file" name='fileudl' />
                                                 <input type="submit" value="Upload">
@@ -275,12 +275,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="urc_uploaded">{{obj.rc_uploaded}}</td>
-                                            <td id="urc_verified">{{obj.rc_verified}}</td>
+                                            <td id="urc_uploaded">{{userdata.rc_uploaded}}</td>
+                                            <td id="urc_verified">{{userdata.rc_verified}}</td>
                                             <td id="urc_blockchain">
-                                                <label class="label label-danger">{{obj.rc_blockchain}}</label>
+                                                <label class="label label-danger">{{userdata.rc_blockchain}}</label>
                                             </td>
-                                            <td id="urc_validity">{{obj.rc_validity}}</td>
+                                            <td id="urc_validity">{{userdata.rc_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadrc" id="urc" method="post">
                                                 <input id="fileurc" type="file" />
                                                 <input type="submit" value="Upload">
@@ -296,12 +296,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="upo_uploaded">{{obj.po_uploaded}}</td>
-                                            <td id="upo_verified">{{obj.po_verified}}</td>
+                                            <td id="upo_uploaded">{{userdata.po_uploaded}}</td>
+                                            <td id="upo_verified">{{userdata.po_verified}}</td>
                                             <td id="upo_blockchain">
-                                                <label class="label label-danger">{{obj.po_blockchain}}</label>
+                                                <label class="label label-danger">{{userdata.po_blockchain}}</label>
                                             </td>
-                                            <td id="upo_validity">{{obj.po_validity}}</td>
+                                            <td id="upo_validity">{{userdata.po_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadpo" id="upo" method="post">
                                                 <input id="fileupo" type="file" />
                                                 <input type="submit" value="Upload">
@@ -317,12 +317,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="uis_uploaded">{{obj.is_uploaded}}</td>
-                                            <td id="uis_verified">{{obj.is_verified}}</td>
+                                            <td id="uis_uploaded">{{userdata.is_uploaded}}</td>
+                                            <td id="uis_verified">{{userdata.is_verified}}</td>
                                             <td id="uis_blockchain">
-                                                <label class="label label-danger">{{obj.is_blockchain}}</label>
+                                                <label class="label label-danger">{{userdata.is_blockchain}}</label>
                                             </td>
-                                            <td id="uis_validity">{{obj.is_validity}}</td>
+                                            <td id="uis_validity">{{userdata.is_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadis" id="uis" method="post">
                                                 <input id="fileuis" type="file" />
                                                 <input type="submit" value="Upload">
@@ -501,8 +501,8 @@
     <script src="/dashboard/assets/libs/chartist/dist/chartist.min.js"></script>
     <script src="/dashboard/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/dashboard/dist/js/pages/dashboards/dashboard1.js"></script>
-    <script src="/blockchain/contract.js"></script>
-    <script src="/app_dashboard.js"></script>
+    <script src="/blockchain/web3config.js"></script>
+    <script src="/blockchain/app_dashboard.js"></script>
 
     <script>
       document.getElementById("activateqr").addEventListener("click",(e)=>{
@@ -552,7 +552,7 @@
             });
       });
 
-      QRCode.toCanvas(document.getElementById('canvas'), "http://127.0.0.1:5000/verify/{{obj.username}}/{{bid}}" , function (error) {
+      QRCode.toCanvas(document.getElementById('canvas'), "http://127.0.0.1:5000/verify/{{userdata.username}}/{{bid}}" , function (error) {
         if (error) console.error(error)
         console.log('success!');
       })
