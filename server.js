@@ -1,28 +1,33 @@
-var createError = require('http-errors');
-var express = require('express');
-var session = require("express-session");
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const session = require("express-session");
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const uuid = require("uuid").v4;
 
-const uuid = require("uuid/v4");
-
+/*
+* Configuration files
+*/
 require("./config/handlebarHelpers");
 
 
+
+/*
+* Routers
+*/
 var indexRouter = require('./routes/index');
 var dashboardRouter = require('./routes/dashboard');
 var authRouter = require('./routes/auth');
 
 
-
+/*
+* Application set up
+*/
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
-
 app.set('view engine', 'hbs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,7 +43,9 @@ app.use(
   })
 );
 
-
+/*
+* Endpoints Routing setup
+*/
 app.use('/', indexRouter);
 app.use('/dashboard', dashboardRouter);
 app.use("/auth",authRouter);

@@ -7,6 +7,17 @@ router.get('/login', function(req, res, next) {
     res.render("login", { msg: "" });
 });
 
-router.post('/login', );
+router.post('/login',authController.login);
+
+router.get("/signup", (req, res) => {
+    res.render("signup");
+});
+
+router.post("/signup", authController.register);
+
+router.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
+});
 
 module.exports = router;

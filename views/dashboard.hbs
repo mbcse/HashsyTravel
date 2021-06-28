@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/dashboard/assets/images/favicon.png">
-    <title>DecentraTravel</title>
+    <title>HashSyTravel</title>
     <!-- Custom CSS -->
     <link href="/dashboard/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -66,7 +66,7 @@
                              <!-- dark Logo text -->
                              <!-- <img src="/images/cover.png" alt="homepage" class="dark-logo" /> -->
                              <!-- Light Logo text -->    
-                             DecentraTravel
+                             HashSyTravel
                              <!-- <img src="/images/cover.png"  class="light-logo img-fluid" alt="homepage" /> -->
                         </span>
                     </a>
@@ -144,7 +144,7 @@
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="/logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                        <a class="dropdown-item" href="/auth/logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                     </div>
                                 </div>
                             </div>
@@ -254,12 +254,12 @@
                                                 </div>
                                             </td>
                                             
-                                            <td id="udl_uploaded">{{=obj.dl_uploaded}}</td>
-                                            <td id="udl_verified">{{=obj.dl_verified}}</td>
+                                            <td id="udl_uploaded">{{obj.dl_uploaded}}</td>
+                                            <td id="udl_verified">{{obj.dl_verified}}</td>
                                             <td id="udl_blockchain">
-                                                <label class="label label-danger">{{=obj.dl_blockchain}}</label>
+                                                <label class="label label-danger">{{obj.dl_blockchain}}</label>
                                             </td>
-                                            <td id="udl_validity">{{=obj.dl_validity}}</td>
+                                            <td id="udl_validity">{{obj.dl_validity}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploaddl" id="udl" method="post">
                                                 <input id="fileudl" type="file" name='fileudl' />
                                                 <input type="submit" value="Upload">
@@ -511,7 +511,7 @@
                   alert("Error:Your Docs Are not Valid");
               }
               else{
-                  contract.verify({{=bid}},(err,status)=>{
+                  contract.verify({{bid}},(err,status)=>{
                       if(status){
                           
                           fetch("/activate").then((response)=>{
@@ -532,8 +532,8 @@
       
       document.getElementById("verifyactivate").addEventListener("click",(e)=>{
          
-            contract.verify({{=bid}},(err,status)=>{
-                console.log({{=bid}});
+            contract.verify({{bid}},(err,status)=>{
+                console.log({{bid}});
                 if(status){
                     console.log(status);
                     fetch("/activate").then((response)=>{
@@ -552,7 +552,7 @@
             });
       });
 
-      QRCode.toCanvas(document.getElementById('canvas'), "http://127.0.0.1:5000/verify/{{=obj.username}}/{{=bid}}" , function (error) {
+      QRCode.toCanvas(document.getElementById('canvas'), "http://127.0.0.1:5000/verify/{{obj.username}}/{{bid}}" , function (error) {
         if (error) console.error(error)
         console.log('success!');
       })

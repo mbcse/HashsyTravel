@@ -2,7 +2,7 @@ const harperive = require('harperive');
 
 const DB_CONFIG = {
   harperHost: "https://hashsytravel-mbcsehashnode.harperdbcloud.com",
-  username: "mohit",
+  username: "mbcse",
   password: "mohit@12345",
   schema: "hashsytravel" // optional
 };
