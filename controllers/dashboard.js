@@ -1,5 +1,6 @@
 const database=require("../config/database");
-const {documentUpload} =require("../config/multer");
+const ipfs=require("../config/ipfs");
+const ocr=require("../config/ocr");
 module.exports={
 
 dashboard: async (req, res) => {
@@ -12,7 +13,6 @@ dashboard: async (req, res) => {
     };
     try {
       const user = await database.searchByValue(options);
-      console.log(user);
       res.render("dashboard", {
         userdata: user.data[0],
         user: req.session.user, 
@@ -26,8 +26,18 @@ dashboard: async (req, res) => {
 },
 
 uploaddl: async(req,res)=>{
-  console.log(req.file);
-   res.json({done:true});
+  try{
+    console.log(req.file);
+    let hash=await ipfs.uploadfile(req.file.filename);
+    let data=await ocr.extractIsData(req.file.filename,"dl");
+    console.log(hash);
+    console.log(data);
+    res.json({done:true});
+  }catch(err){
+    console.log(err);
+    res.json({done:false});
+  }
+
 }
 
 
