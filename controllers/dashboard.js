@@ -1,5 +1,5 @@
 const database=require("../config/database");
-
+const {documentUpload} =require("../config/multer");
 module.exports={
 
 dashboard: async (req, res) => {
@@ -23,7 +23,12 @@ dashboard: async (req, res) => {
       console.log(err);
       res.send("Internal Error");
     }
-  }
+},
+
+uploaddl: async(req,res)=>{
+  console.log(req.file);
+   res.json({done:true});
+}
 
 
 
