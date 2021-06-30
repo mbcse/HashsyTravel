@@ -10,6 +10,7 @@ module.exports={
              
                 // Using your personal token + local file
                 const res2 = await ocrSpace("./public/doc_uploads/"+ filename, { apiKey: apiKey });
+                console.log(res2);
                 let data=res2.ParsedResults[0].ParsedText;
                 //DRIVING LICENSE
                 // Transport Department

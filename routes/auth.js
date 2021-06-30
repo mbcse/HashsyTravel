@@ -14,6 +14,7 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", authController.register);
+router.post("/insertbid", authController.insertBid);
 
 router.get("/logout", (req, res) => {
     req.session.destroy();

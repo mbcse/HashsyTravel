@@ -75,7 +75,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <center class="m-t-30"> <img src="/images/dtlogo.png" class="rounded-circle" width="150" />
-                                    <h4 class="card-title m-t-10" id="name">{{(user.fname+user.lname)}}</h4>
+                                    <h4 class="card-title m-t-10" id="name">{{user.fname}} {{user.lname}}</h4>
                                     <h6 class="card-subtitle" id="username" >{{user.username}}</h6>
                                     <div class="row text-center justify-content-md-center">
                                      Verified:<div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium" id="verified">Verified</font></a></div>
@@ -86,10 +86,10 @@
                             <div>
                                 <hr> </div>
                             <div class="card-body"> <small class="text-muted">Email address </small>
-                                <h6>{{=user.email}}</h6> <small class="text-muted p-t-30 db">Adharr</small>
-                                <h6>{{=user.addhar}}</h6>
+                                <h6>{{user.email}}</h6> <small class="text-muted p-t-30 db">Adharr</small>
+                                <h6>{{user.addhar}}</h6>
                                 <small class="text-muted p-t-30 db">DOB</small>
-                                <h6>{{=user.dob}}</h6>
+                                <h6>{{user.dob}}</h6>
                                 <!-- <div class="map-box">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
                                 </div> <small class="text-muted p-t-30 db">Social Profile</small>
@@ -110,21 +110,21 @@
                                     <div class="form-group">
                                         <label class="col-md-12">License No</label>
                                         <div class="col-md-12">
-                                            <span id="dlid">920192092</span>
+                                            <span id="dlid">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">License Validity</label>
                                         <div class="col-md-12">
-                                            <span id="dlvalidity">920192092</span>
+                                            <span id="dlvalidity">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">Document Ipfs</label>
                                         <div class="col-md-12">
-                                            <span id="dlipfs">sfwergwrgwgrwwg</span>
+                                            <span id="dlipfs">null</span>
                                         </div>
                                     </div>
 
@@ -134,21 +134,21 @@
                                     <div class="form-group">
                                         <label class="col-md-12">RC No</label>
                                         <div class="col-md-12">
-                                            <span id="rcid">920192092</span>
+                                            <span id="rcid">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">RC Validity</label>
                                         <div class="col-md-12">
-                                            <span id="rcvalidity">920192092</span>
+                                            <span id="rcvalidity">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">Document Ipfs</label>
                                         <div class="col-md-12">
-                                            <span id="rcipfs">sfwergwrgwgrwwg</span>
+                                            <span id="rcipfs">null</span>
                                         </div>
                                     </div>
 
@@ -160,21 +160,21 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Polution Certificate No</label>
                                         <div class="col-md-12">
-                                            <span id="poid">920192092</span>
+                                            <span id="poid">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">Polution Certificate Validity</label>
                                         <div class="col-md-12">
-                                            <span id="povalidity">920192092</span>
+                                            <span id="povalidity">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">Document Ipfs</label>
                                         <div class="col-md-12">
-                                            <span id="poipfs">sfwergwrgwgrwwg</span>
+                                            <span id="poipfs">null</span>
                                         </div>
                                     </div>
 
@@ -186,21 +186,21 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Insurance No</label>
                                         <div class="col-md-12">
-                                            <span id="isid">920192092</span>
+                                            <span id="isid">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">Insurance Validity</label>
                                         <div class="col-md-12">
-                                            <span id="isvalidity">920192092</span>
+                                            <span id="isvalidity">null</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-12">Document Ipfs</label>
                                         <div class="col-md-12">
-                                            <span id="isipfs">sfwergwrgwgrwwg</span>
+                                            <span id="isipfs">null</span>
                                         </div>
                                     </div>
                                   
@@ -259,7 +259,7 @@
     <script src="/contract.js"></script>
     <script>
 
-        contract.verify({{=bid}},(err,status)=>{
+        App.contract.methods.verify({{bid}},(err,status)=>{
             document.getElementById("verified").innerText=status;
             if(status)
             document.getElementById("active").innerText="Active";

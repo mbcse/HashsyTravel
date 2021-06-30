@@ -193,7 +193,7 @@
                     </div>
                     <div class="col-7">
                         <div class="text-right upgrade-btn">
-                            <a href="https://wrappixel.com/templates/xtremeadmin/" class="btn btn-danger text-white" target="_blank">Scan a qr code</a>
+                            <a href="" class="btn btn-danger text-white" target="_blank">Scan a qr code</a>
                         </div>
                     </div>
                 </div>
@@ -218,7 +218,7 @@
                                         <canvas id="canvas"></canvas>
                                     </div>
                                    <h5>USER ID : {{user}} <br><br>
-                                     QR CODE : <span id="activationstatus">{{userdata.qr}}</span>
+                                     QR CODE : <span id="activationstatus">{{if userdata.qractivated "Activated" ""}}</span>
                                     </h5>  
                                    
                                 </div>
@@ -254,12 +254,12 @@
                                                 </div>
                                             </td>
                                             
-                                            <td id="udl_uploaded">{{userdata.dl_uploaded}}</td>
-                                            <td id="udl_verified">{{userdata.dl_verified}}</td>
+                                            <td id="udl_uploaded">{{if userdata.dl.uploadstatus "Uploaded" "" }}</td>
+                                            <td id="udl_verified">{{if userdata.dl.verifiedstatus "Verified" ""}}</td>
                                             <td id="udl_blockchain">
-                                                <label class="label label-danger">{{userdata.dl_blockchain}}</label>
+                                                <label class="label label-danger">{{if userdata.dl.blockchainstatus "Updated" ""}}</label>
                                             </td>
-                                            <td id="udl_validity">{{userdata.dl_validity}}</td>
+                                            <td id="udl_validity">{{if userdata.dl.Validity userdata.dl.Validity ""}}</td>
                                             <td><form enctype="multipart/form-data" action="/dashboard/uploaddl" id="udl" method="post">
                                                 <input id="fileudl" type="file" name='fileudl' />
                                                 <input type="submit" value="Upload">
@@ -275,12 +275,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="urc_uploaded">{{userdata.rc_uploaded}}</td>
-                                            <td id="urc_verified">{{userdata.rc_verified}}</td>
+                                            <td id="urc_uploaded">{{if userdata.rc.uploadstatus "Uploaded" "" }}</td>
+                                            <td id="urc_verified">{{if userdata.rc.verifiedstatus "Verified" ""}}</td>
                                             <td id="urc_blockchain">
-                                                <label class="label label-danger">{{userdata.rc_blockchain}}</label>
+                                                <label class="label label-danger">{{if userdata.rc.blockchainstatus "Updated" ""}}</label>
                                             </td>
-                                            <td id="urc_validity">{{userdata.rc_validity}}</td>
+                                            <td id="urc_validity">{{if userdata.rc.Validity userdata.rc.Validity ""}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadrc" id="urc" method="post">
                                                 <input id="fileurc" type="file" />
                                                 <input type="submit" value="Upload">
@@ -296,12 +296,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="upo_uploaded">{{userdata.po_uploaded}}</td>
-                                            <td id="upo_verified">{{userdata.po_verified}}</td>
+                                            <td id="upo_uploaded">{{if userdata.po.uploadstatus "Uploaded" "" }}</td>
+                                            <td id="upo_verified">{{if userdata.po.verifiedstatus "Verified" ""}}</td>
                                             <td id="upo_blockchain">
-                                                <label class="label label-danger">{{userdata.po_blockchain}}</label>
+                                                <label class="label label-danger">{{if userdata.po.blockchainstatus "Updated" ""}}</label>
                                             </td>
-                                            <td id="upo_validity">{{userdata.po_validity}}</td>
+                                            <td id="upo_validity">{{if userdata.po.Validity userdata.po.Validity ""}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadpo" id="upo" method="post">
                                                 <input id="fileupo" type="file" />
                                                 <input type="submit" value="Upload">
@@ -317,12 +317,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="uis_uploaded">{{userdata.is_uploaded}}</td>
-                                            <td id="uis_verified">{{userdata.is_verified}}</td>
+                                            <td id="uis_uploaded">{{if userdata.is.uploadstatus "Uploaded" "" }}</td>
+                                            <td id="uis_verified">{{if userdata.is.verifiedstatus "Verified" ""}}</td>
                                             <td id="uis_blockchain">
-                                                <label class="label label-danger">{{userdata.is_blockchain}}</label>
+                                                <label class="label label-danger">{{if userdata.is.blockchainstatus "Updated" ""}}</label>
                                             </td>
-                                            <td id="uis_validity">{{userdata.is_validity}}</td>
+                                            <td id="uis_validity">{{if userdata.is.Validity userdata.is.Validity ""}}</td>
                                             <td><form enctype="multipart/form-data" action="/uploadis" id="uis" method="post">
                                                 <input id="fileuis" type="file" />
                                                 <input type="submit" value="Upload">
@@ -469,7 +469,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by HashSyTravel. Designed and Developed by <a href="#">Mohit,  Avinash and Aditya</a>.
+                All Rights Reserved by HashSyTravel. Designed and Developed by <a href="#">Mohit Bhat</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -504,59 +504,6 @@
     <script src="/blockchain/web3config.js"></script>
     <script src="/blockchain/app_dashboard.js"></script>
 
-    <script>
-      document.getElementById("activateqr").addEventListener("click",(e)=>{
-          contract.setverified((err,result)=>{
-              if(err){
-                  alert("Error:Your Docs Are not Valid");
-              }
-              else{
-                  contract.verify({{bid}},(err,status)=>{
-                      if(status){
-                          
-                          fetch("/activate").then((response)=>{
-                              response.json().then((res)=>{
-                                  if(res.status){
-                                      document.getElementById("activationstatus").innerText="Activated";
-                                  }else{
-                                    alert(msg.msg);
-                                  }
-                              })
-                          });
-                      }
-                  });
-              }
-          })
-      });
-
-      
-      document.getElementById("verifyactivate").addEventListener("click",(e)=>{
-         
-            contract.verify({{bid}},(err,status)=>{
-                console.log({{bid}});
-                if(status){
-                    console.log(status);
-                    fetch("/activate").then((response)=>{
-                        response.json().then((res)=>{
-                            if(res.status){
-                                      document.getElementById("activationstatus").innerText="Activated";
-                                  }else{
-                                    alert(res.msg);
-                                  }
-                        });
-                    });
-                }
-                else{
-                    alert("Please click on activate Button");
-                }
-            });
-      });
-
-      QRCode.toCanvas(document.getElementById('canvas'), "http://127.0.0.1:5000/verify/{{userdata.username}}/{{bid}}" , function (error) {
-        if (error) console.error(error)
-        console.log('success!');
-      })
-    </script>
 
 </body>
 

@@ -2,298 +2,227 @@
 
 $("#udl").submit((event) => {
   event.preventDefault();
-  console.log("Working Dashboard js");
   var fd = new FormData();
   var files = $("#fileudl")[0].files[0];
   console.log(files);
   fd.append("file", files);
   console.log(fd);
   fetch("/dashboard/uploaddl",{body:fd, method:"post"}).then((res)=>res.json())
-  .then((res)=>{
+  .then(async(res)=>{
+    console.log(res);
     if(!res.done) throw new Error("Server DL Upload error");
+
     document.getElementById("udl_uploaded").innerHTML =
     "<span class='label label-success'>Uploaded</span>";
+
     setTimeout(function () {
         document.getElementById("udl_verified").innerHTML =
           "<span class='label label-success'>Verified</span>";
     }, 2000);
-    
+
+    await App.contract.methods.add_driving(res.hash,res.licenseno,res.validity.toString()).send({from:web3.givenProvider.selectedAddress});
+
+    return fetch("/dashboard/confirmblockchainupload",{body:JSON.stringify({doc:'dl'}), method:'post', headers:{
+      'Content-Type':'application/json'
+    }});
+  }).then((resp)=>resp.json())
+  .then(async (resp)=>{
+    if(!resp.done) throw new Error("Error: "+resp.error);
+    document.getElementById("udl_blockchain").innerHTML ="<span class='label label-success'>Uploaded</span>";
   }).catch((err)=>{
     console.log("Something Went Wrong\nError: "+err);
+    alert("Error: "+err);
   })
 });
-//   $.ajax({
-//     url: "/uploaddl",
-//     type: "post",
-//     data: fd,
-//     contentType: false,
-//     processData: false,
-//     datatype: "json",
-//     success: function (response) {
-//       if (response.done == "ok") {
-//         document.getElementById("udl_uploaded").innerHTML =
-//           "<span class='label label-success'>Uploaded</span>";
-//         setTimeout(function () {
-//           document.getElementById("udl_verified").innerHTML =
-//             "<span class='label label-success'>Verified</span>";
-//         }, 2000);
-//         console.log(response);
-
-//         contract.add_driving(
-//           response.hash,
-//           response.license_no,
-//           response.validity.toString(),
-//           (err, result) => {
-//             console.log("done");
-//             var ev = contract.dladded();
-//             ev.watch((err, resu) => {
-//               if (!err) {
-//                 if (resu.args.r) {
-//                   var xhttp = new XMLHttpRequest();
-//                   xhttp.open("POST", "/confirmdocs", true);
-//                   xhttp.setRequestHeader(
-//                     "Content-type",
-//                     "application/x-www-form-urlencoded"
-//                   );
-//                   xhttp.send("db=dl&validity=" + response.validity);
-//                   xhttp.onreadystatechange = function () {
-//                     if (this.readyState == 4 && this.status == 200) {
-//                       if (this.responseText) {
-//                         document.getElementById("udl_blockchain").innerHTML =
-//                           "<span class='label label-success'>Uploaded</span>";
-//                         setTimeout(function () {
-//                           document.getElementById("udl_validity").innerHTML =
-//                             response.validity;
-//                         }, 2000);
-//                       } else {
-//                         alert("error");
-//                       }
-//                     }
-//                   };
-//                 }
-//               }
-//             });
-//           }
-//         );
-//       } else {
-//         alert("file not uploaded");
-//       }
-//     },
-//   });
-// });
 
 // //**********************RC upload****************** */
 
-// $("#urc").submit((event) => {
-//   event.preventDefault();
+$("#urc").submit((event) => {
+  event.preventDefault();
+  var fd = new FormData();
+  var files = $("#fileurc")[0].files[0];
+  console.log(files);
+  fd.append("file", files);
+  console.log(fd);
+  fetch("/dashboard/uploadrc",{body:fd, method:"post"}).then((res)=>res.json())
+  .then(async(res)=>{
+    console.log(res);
+    if(!res.done) throw new Error("Server DL Upload error");
 
-//   var fd = new FormData();
-//   var files = $("#fileurc")[0].files[0];
-//   fd.append("file", files);
+    document.getElementById("urc_uploaded").innerHTML =
+    "<span class='label label-success'>Uploaded</span>";
 
-//   $.ajax({
-//     url: "/uploadrc",
-//     type: "post",
-//     data: fd,
-//     contentType: false,
-//     processData: false,
-//     datatype: "json",
-//     success: function (response) {
-//       if (response.done == "ok") {
-//         document.getElementById("urc_uploaded").innerHTML =
-//           "<span class='label label-success'>Uploaded</span>";
-//         setTimeout(function () {
-//           document.getElementById("urc_verified").innerHTML =
-//             "<span class='label label-success'>Verified</span>";
-//         }, 2000);
-//         console.log(response);
+    setTimeout(function () {
+        document.getElementById("urc_verified").innerHTML =
+          "<span class='label label-success'>Verified</span>";
+    }, 2000);
 
-//         contract.add_rc(
-//           response.hash,
-//           response.rc_no,
-//           response.validity.toString(),
-//           response.regdate,
-//           response.chassis,
-//           response.engine,
-//           response.model,
-//           response.seat,
-//           (err, result) => {
-//             console.log("done");
+    await App.contract.methods.add_rc( res.hash,
+      res.rc_no,
+      res.validity.toString(),
+      res.regdate,
+      res.chassis,
+      res.engine,
+      res.model,
+      res.seat,).send({from:web3.givenProvider.selectedAddress});
 
-//             var ev = contract.rcadded();
-//             ev.watch((err, resu) => {
-//               if (!err) {
-//                 if (resu.args.r) {
-//                   var xhttp = new XMLHttpRequest();
-//                   xhttp.open("POST", "/confirmdocs", true);
-//                   xhttp.setRequestHeader(
-//                     "Content-type",
-//                     "application/x-www-form-urlencoded"
-//                   );
-//                   xhttp.send("db=rc&validity=" + response.validity);
+    return fetch("/dashboard/confirmblockchainupload",{body:JSON.stringify({doc:'rc'}), method:'post', headers:{
+      'Content-Type':'application/json'
+    }});
+  }).then((resp)=>resp.json())
+  .then(async (resp)=>{
+    if(!resp.done) throw new Error("Error: "+resp.error);
+    document.getElementById("urc_blockchain").innerHTML ="<span class='label label-success'>Uploaded</span>";
+  }).catch((err)=>{
+    console.log("Something Went Wrong\nError: "+err);
+    alert("Error: "+err);
+  })
+});
 
-//                   xhttp.onreadystatechange = function () {
-//                     if (this.readyState == 4 && this.status == 200) {
-//                       if (this.responseText) {
-//                         console.log(this.responseText);
-//                         document.getElementById("urc_blockchain").innerHTML =
-//                           "<span class='label label-success'>Uploaded</span>";
-//                         setTimeout(function () {
-//                           document.getElementById("urc_validity").innerHTML =
-//                             response.validity;
-//                         }, 2000);
-//                       } else {
-//                         alert("error");
-//                       }
-//                     }
-//                   };
-//                 }
-//               }
-//             });
-//           }
-//         );
-//       } else {
-//         alert("file not uploaded");
-//       }
-//     },
-//   });
-// });
+
 
 // //**********************is upload****************** */
+$("#uis").submit((event) => {
+  event.preventDefault();
+  var fd = new FormData();
+  var files = $("#fileuis")[0].files[0];
+  console.log(files);
+  fd.append("file", files);
+  console.log(fd);
+  fetch("/dashboard/uploadis",{body:fd, method:"post"}).then((res)=>res.json())
+  .then(async(res)=>{
+    console.log(res);
+    if(!res.done) throw new Error("Server DL Upload error");
 
-// $("#uis").submit((event) => {
-//   event.preventDefault();
+    document.getElementById("uis_uploaded").innerHTML =
+    "<span class='label label-success'>Uploaded</span>";
 
-//   var fd = new FormData();
-//   var files = $("#fileuis")[0].files[0];
-//   fd.append("file", files);
+    setTimeout(function () {
+        document.getElementById("uis_verified").innerHTML =
+          "<span class='label label-success'>Verified</span>";
+    }, 2000);
 
-//   $.ajax({
-//     url: "/uploadis",
-//     type: "post",
-//     data: fd,
-//     contentType: false,
-//     processData: false,
-//     datatype: "json",
-//     success: function (response) {
-//       if (response.done == "ok") {
-//         document.getElementById("uis_uploaded").innerHTML =
-//           "<span class='label label-success'>Uploaded</span>";
-//         setTimeout(function () {
-//           document.getElementById("uis_verified").innerHTML =
-//             "<span class='label label-success'>Verified</span>";
-//         }, 2000);
-//         console.log(response);
+    await App.contract.methods.add_insurance( res.hash,
+      res.is_no,
+      res.validity.toString(),).send({from:web3.givenProvider.selectedAddress});
 
-//         contract.add_insurance(
-//           response.hash,
-//           response.is_no,
-//           response.validity.toString(),
-//           (err, result) => {
-//             console.log("done");
+    return fetch("/dashboard/confirmblockchainupload",{body:JSON.stringify({doc:'is'}), method:'post', headers:{
+      'Content-Type':'application/json'
+    }});
+  }).then((resp)=>resp.json())
+  .then(async (resp)=>{
+    if(!resp.done) throw new Error("Error: "+resp.error);
+    document.getElementById("uis_blockchain").innerHTML ="<span class='label label-success'>Uploaded</span>";
+  }).catch((err)=>{
+    console.log("Something Went Wrong\nError: "+err);
+    alert("Error: "+err);
+  })
+});
 
-//             var ev = contract.isadded();
-//             ev.watch((err, resu) => {
-//               if (!err) {
-//                 if (resu.args.r) {
-//                   var xhttp = new XMLHttpRequest();
-//                   xhttp.open("POST", "/confirmdocs", true);
-//                   xhttp.setRequestHeader(
-//                     "Content-type",
-//                     "application/x-www-form-urlencoded"
-//                   );
-//                   xhttp.send("db=is&validity=" + response.validity);
-//                   xhttp.onreadystatechange = function () {
-//                     if (this.readyState == 4 && this.status == 200) {
-//                       if (this.responseText) {
-//                         document.getElementById("uis_blockchain").innerHTML =
-//                           "<span class='label label-success'>Uploaded</span>";
-//                         setTimeout(function () {
-//                           document.getElementById("uis_validity").innerHTML =
-//                             response.validity;
-//                         }, 2000);
-//                       } else {
-//                         alert("error");
-//                       }
-//                     }
-//                   };
-//                 }
-//               }
-//             });
-//           }
-//         );
-//       } else {
-//         alert("file not uploaded");
-//       }
-//     },
-//   });
-// });
 
 // //**********************PO upload****************** */
+$("#upo").submit((event) => {
+  event.preventDefault();
+  var fd = new FormData();
+  var files = $("#fileupo")[0].files[0];
+  console.log(files);
+  fd.append("file", files);
+  console.log(fd);
+  fetch("/dashboard/uploadpo",{body:fd, method:"post"}).then((res)=>res.json())
+  .then(async(res)=>{
+    console.log(res);
+    if(!res.done) throw new Error("Server DL Upload error");
 
-// $("#upo").submit((event) => {
-//   event.preventDefault();
+    document.getElementById("upo_uploaded").innerHTML =
+    "<span class='label label-success'>Uploaded</span>";
 
-//   var fd = new FormData();
-//   var files = $("#fileupo")[0].files[0];
-//   fd.append("file", files);
+    setTimeout(function () {
+        document.getElementById("upo_verified").innerHTML =
+          "<span class='label label-success'>Verified</span>";
+    }, 2000);
 
-//   $.ajax({
-//     url: "/uploadpo",
-//     type: "post",
-//     data: fd,
-//     contentType: false,
-//     processData: false,
-//     datatype: "json",
-//     success: function (response) {
-//       if (response.done == "ok") {
-//         document.getElementById("upo_uploaded").innerHTML =
-//           "<span class='label label-success'>Uploaded</span>";
-//         setTimeout(function () {
-//           document.getElementById("upo_verified").innerHTML =
-//             "<span class='label label-success'>Verified</span>";
-//         }, 2000);
-//         console.log(response);
+    await App.contract.methods.add_pollution(  res.hash,
+      res.po_no,
+      res.validity.toString(),).send({from:web3.givenProvider.selectedAddress});
 
-//         contract.add_pollution(
-//           response.hash,
-//           response.po_no,
-//           response.validity.toString(),
-//           (err, result) => {
-//             console.log("done");
-//             var ev = contract.poadded();
-//             ev.watch((err, resu) => {
-//               if (!err) {
-//                 if (resu.args.r) {
-//                   var xhttp = new XMLHttpRequest();
-//                   xhttp.open("POST", "/confirmdocs", true);
-//                   xhttp.setRequestHeader(
-//                     "Content-type",
-//                     "application/x-www-form-urlencoded"
-//                   );
-//                   xhttp.send("db=po&validity=" + response.validity);
-//                   xhttp.onreadystatechange = function () {
-//                     if (this.readyState == 4 && this.status == 200) {
-//                       if (this.responseText) {
-//                         document.getElementById("upo_blockchain").innerHTML =
-//                           "<span class='label label-success'>Uploaded</span>";
-//                         setTimeout(function () {
-//                           document.getElementById("upo_validity").innerHTML =
-//                             response.validity;
-//                         }, 2000);
-//                       } else {
-//                         alert("error");
-//                       }
-//                     }
-//                   };
-//                 }
-//               }
-//             });
-//           }
-//         );
-//       } else {
-//         alert("file not uploaded");
+    return fetch("/dashboard/confirmblockchainupload",{body:JSON.stringify({doc:'po'}), method:'post', headers:{
+      'Content-Type':'application/json'
+    }});
+  }).then((resp)=>resp.json())
+  .then(async (resp)=>{
+    if(!resp.done) throw new Error("Error: "+resp.error);
+    document.getElementById("upo_blockchain").innerHTML ="<span class='label label-success'>Uploaded</span>";
+  }).catch((err)=>{
+    console.log("Something Went Wrong\nError: "+err);
+    alert("Error: "+err);
+  })
+});
+
+
+//******************************QR Code Activation************************************ */
+document.getElementById("activateqr").addEventListener("click",async (e)=>{
+  try{
+    await App.contract.methods.setverified().send({from:web3.givenProvider.selectedAddress});
+    let isVerified=await App.contract.methods.verify().call({from:web3.givenProvider.selectedAddress});
+    if(!isVerified) throw new Error("Not Verified/Activated");
+    let response=await fetch("/qr/activate");
+    let res=await response.json();
+    if(!res.done) throw new Error("Server Error: "+res.error);
+    document.getElementById("activationstatus").innerText="Activated";
+
+  }catch(err){
+    alert("Error: "+err);
+  }
+});  
+//   contract.setverified((err,result)=>{
+//       if(err){
+//           alert("Error:Your Docs Are not Valid");
 //       }
-//     },
+//       else{
+//           contract.verify("{{bid}"},(err,status)=>{
+//               if(status){
+                  
+//                   fetch("/activate").then((response)=>{
+//                       response.json().then((res)=>{
+//                           if(res.status){
+//                               document.getElementById("activationstatus").innerText="Activated";
+//                           }else{
+//                             alert(msg.msg);
+//                           }
+//                       })
+//                   });
+//               }
+//           });
+//       }
+//   })
+// });
+
+
+
+  
+// document.getElementById("verifyactivate").addEventListener("click",(e)=>{
+         
+//   contract.verify({{bid}},(err,status)=>{
+//       console.log({{bid}});
+//       if(status){
+//           console.log(status);
+//           fetch("/activate").then((response)=>{
+//               response.json().then((res)=>{
+//                   if(res.status){
+//                             document.getElementById("activationstatus").innerText="Activated";
+//                         }else{
+//                           alert(res.msg);
+//                         }
+//               });
+//           });
+//       }
+//       else{
+//           alert("Please click on activate Button");
+//       }
 //   });
 // });
+
+QRCode.toCanvas(document.getElementById('canvas'), "http://127.0.0.1:5000/verify/{{userdata.username}}/{{bid}}" , function (error) {
+if (error) console.error(error)
+console.log('success!');
+});
