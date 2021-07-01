@@ -1,8 +1,11 @@
 App={
+  loadingweb3:false,
   load:async ()=>{
+    App.loadingweb3=true;
     await App.loadWeb3();
     await App.loadAccount();
     await App.loadContract();
+    App.loadingweb3=false;
   },
   loadWeb3:async ()=>{
       // Modern dapp browsers...
@@ -35,6 +38,58 @@ App={
 
   loadContract:async ()=>{
     var abi = [
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "r",
+            "type": "bool"
+          }
+        ],
+        "name": "dladded",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "r",
+            "type": "bool"
+          }
+        ],
+        "name": "isadded",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "r",
+            "type": "bool"
+          }
+        ],
+        "name": "poadded",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "r",
+            "type": "bool"
+          }
+        ],
+        "name": "rcadded",
+        "type": "event"
+      },
       {
         "constant": false,
         "inputs": [
@@ -173,99 +228,6 @@ App={
           }
         ],
         "name": "add_rc",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "ok",
-            "type": "bool"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "internalType": "bool",
-            "name": "r",
-            "type": "bool"
-          }
-        ],
-        "name": "dladded",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "internalType": "bool",
-            "name": "r",
-            "type": "bool"
-          }
-        ],
-        "name": "isadded",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "internalType": "bool",
-            "name": "r",
-            "type": "bool"
-          }
-        ],
-        "name": "poadded",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "internalType": "bool",
-            "name": "r",
-            "type": "bool"
-          }
-        ],
-        "name": "rcadded",
-        "type": "event"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "dob",
-            "type": "string"
-          }
-        ],
-        "name": "registeruser",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "id",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "setverified",
         "outputs": [
           {
             "internalType": "bool",
@@ -448,6 +410,47 @@ App={
         "type": "function"
       },
       {
+        "constant": false,
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "dob",
+            "type": "string"
+          }
+        ],
+        "name": "registeruser",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "setverified",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "ok",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
         "constant": true,
         "inputs": [],
         "name": "testcontract",
@@ -479,6 +482,27 @@ App={
       },
       {
         "constant": true,
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "verified",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
         "inputs": [],
         "name": "verify",
         "outputs": [
@@ -493,7 +517,7 @@ App={
         "type": "function"
       }
     ];
-    var address = "0x9087c545049A6DfA5B08Bab0e62237B34EB6199f";
+    var address = "0x0543cA86fC449D982EBc4DB71ac6C53fCAf18Fb7";
     
     App.contract = new web3.eth.Contract(abi, address);
     

@@ -13,12 +13,9 @@
     <title>HashSyTravel</title>
     <!-- Custom CSS -->
     <link href="/dashboard/dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <script src="/web3/web3.min.js"></script>
+    <script  src="/blockchain/web3config.js"></script>
+
 </head>
 
 <body>
@@ -256,50 +253,59 @@
     <script src="/dashboard/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="/dashboard/dist/js/custom.js"></script>
-    <script src="/contract.js"></script>
-    <script>
-
-        App.contract.methods.verify({{bid}},(err,status)=>{
+    <script defer>
+ 
+    setTimeout(()=>{
+        App.contract.methods.verified({{bid}}).call().then((status)=>{
+            console.log(status);
             document.getElementById("verified").innerText=status;
             if(status)
             document.getElementById("active").innerText="Active";
             else
             document.getElementById("active").innerText="Not Active";
-
-
+        }).catch((err)=>{
+            alert(err);
         });
+            
 
-        contract.get_rc_details({{bid}},(err,rc)=>{
+        App.contract.methods.get_rc_details({{bid}}).call().then((rc)=>{
+            console.log(rc)
             document.getElementById("rcipfs").innerText=rc[0];
             document.getElementById("rcid").innerText=rc[1];
             document.getElementById("rcvalidity").innerText=new Date(parseInt(rc[2])*1000);
 
+        }).catch((err)=>{
+            alert(err);
         });
 
-        contract.get_driving_details({{bid}},(err,dl)=>{
+        App.contract.methods.get_driving_details({{bid}}).call().then((dl)=>{
             document.getElementById("dlipfs").innerText=dl[0];
             document.getElementById("dlid").innerText=dl[1];
             document.getElementById("dlvalidity").innerText=new Date(parseInt(dl[2])*1000);
+        }).catch((err)=>{
+            alert(err);
         });
 
-        contract.get_pollution_details({{bid}},(err,po)=>{
+        App.contract.methods.get_pollution_details({{bid}}).call().then((po)=>{
             document.getElementById("poipfs").innerText=po[0];
             document.getElementById("poid").innerText=po[1];
             console.log(po[2]);
             document.getElementById("povalidity").innerText=new Date(parseInt(po[2])*1000);
+        }).catch((err)=>{
+            alert(err);
         });
 
-        contract.get_insurance_details({{bid}},(err,is)=>{
+        App.contract.methods.get_insurance_details({{bid}}).call().then((is)=>{
             document.getElementById("isipfs").innerText=is[0];
             document.getElementById("isid").innerText=is[1];
             document.getElementById("isvalidity").innerText=new Date(parseInt(is[2])*1000);
+        }).catch((err)=>{
+            alert(err);
         });
+    },2000);
+       
+      
 
-
-
-
-
-        
     </script>
 </body>
 

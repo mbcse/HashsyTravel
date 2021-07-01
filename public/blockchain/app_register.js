@@ -37,7 +37,7 @@ $("#regform").submit((event) => {
     .send({from:web3.givenProvider.selectedAddress});
     
     let bid=await App.contract.methods.getid().call({from:web3.givenProvider.selectedAddress});
-    bid=bid+1;
+    bid=bid;
     console.log(bid);
    return  fetch("/auth/insertbid",{body:JSON.stringify({id:res.data.id,bid:bid}),headers:{
       'Content-Type':'application/json',

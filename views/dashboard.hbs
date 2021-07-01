@@ -218,7 +218,7 @@
                                         <canvas id="canvas"></canvas>
                                     </div>
                                    <h5>USER ID : {{user}} <br><br>
-                                     QR CODE : <span id="activationstatus">{{if userdata.qractivated "Activated" ""}}</span>
+                                     QR CODE : <span id="activationstatus">{{if userdata.qractivated "Activated" "Not Active"}}</span>
                                     </h5>  
                                    
                                 </div>
@@ -226,8 +226,8 @@
                                Please Upload All Documents Before Activating
                                <br>
                              
-                               <button id="verifyactivate">Verify Activation</button>
-                               If you have already activated before click here to Activate
+                               {{!-- <button id="verifyactivate">Verify Activation</button>
+                               If you have already activated before click here to Activate --}}
                                 <!-- title -->
                             </div>
                             <div class="table-responsive">
@@ -503,8 +503,12 @@
     <script src="/dashboard/dist/js/pages/dashboards/dashboard1.js"></script>
     <script src="/blockchain/web3config.js"></script>
     <script src="/blockchain/app_dashboard.js"></script>
-
-
+    <script>
+    QRCode.toCanvas(document.getElementById('canvas'), "http://127.0.0.1:5000/verify/{{userdata.username}}/{{bid}}" , function (error) {
+    if (error) console.error(error)
+    console.log('success!');
+    });
+    </script>
 </body>
 
 </html>
