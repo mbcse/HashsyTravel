@@ -49,6 +49,8 @@ On the expiration of documents, the user has to re-upload the expired document, 
 - NodeJs
 - OCR
 - Html/css/JavaScript
+- Jquery
+- BootStrap
 - Metamask
 
 # Project Links
