@@ -5,7 +5,7 @@ module.exports={
 
 login: async (req, res) => {
           try {
-            if (!req.body.username || !req.body.password) throw new Error("Please imput Required Fields");
+            if (!req.body.username || !req.body.password) throw new Error("Please input Required Fields");
             const options = {
               // schema is not passed here since it has been passed while creating client
               table: 'users',
@@ -22,6 +22,7 @@ login: async (req, res) => {
             req.session.userid=result.data[0].id;
             res.redirect("/dashboard");
           } catch(err) {
+            console.log(err.message);
             res.render("login", { msg: err.message });
           }
            
