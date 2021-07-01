@@ -15,9 +15,6 @@ Once the user is verified, the user is allowed to log in to the portal. Thereaft
 
 After the documents are uploaded, the undersigned authorities will verify the documents. If all the documents meet the required criteria, then a QR code will be issued to the user which would contain all the details of those documents with a unique stamp/digital signature guaranteeing the user that the QR code is valid and ready to use anywhere. If the documents lack information, they will be rejected by the authorities and the user needs to resubmit again with meeting all the requirements.
 
-# Here is a Short Video
-
-%[https://youtu.be/k37XTAS3Y6A]
 
 # Technical Implementation
 The solution is implemented using Ethereum Blockchain Network, Interplanetary File System (IPFS), Ocr, and Web3 technologies. The solution is having its logic written in Solidity, which is then deployed on Ethereum Network and connected to Application using Web3Js. In the middle, Ocr is used to fetch the relevant documents and verification.
