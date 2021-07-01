@@ -20,7 +20,6 @@ After the documents are uploaded, the undersigned authorities will verify the do
 The solution is implemented using Ethereum Blockchain Network, Interplanetary File System (IPFS), Ocr, and Web3 technologies. The solution is having its logic written in Solidity, which is then deployed on Ethereum Network and connected to Application using Web3Js. In the middle, Ocr is used to fetch the relevant documents and verification.
 
 
-
 The Ipfs Network is used to initially upload and store documents. It is a decentralized peer-to-peer Storage network where we can host websites, store documents, etc. Anything uploaded to the Ipfs network gets attached to a unique hash which can be later used to access the documents. The documents uploaded by the user are stored in Ipfs and the hash of that document is stored in Ethereum. This provides immutability and privacy of data. 
 
 
